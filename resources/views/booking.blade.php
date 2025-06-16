@@ -3,234 +3,225 @@
 @section('title', 'ค้นหาเที่ยวบิน')
 
 @section('content')
-    <style>
-        body {
-            background: #e3f0ff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #1a365d;
-            margin: 0;
-            padding: 0;
+
+<style>
+    body {
+        background: #f0f2f5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #3e3e3e;
+        margin: 0;
+    }
+
+    .outer-container {
+        max-width: 700px;
+        margin: 50px auto;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        border: 1.5px solid #ddd;
+    }
+
+    .header {
+        background-color: #ffc107;
+        padding: 16px 0;
+        text-align: center;
+        font-size: 1.8em;
+        font-weight: 700;
+        color: #3e3e3e;
+        border-bottom: 1.5px solid #e0a800;
+    }
+
+    .container {
+        padding: 40px 48px;
+        background: #fff;
+    }
+
+    .search-container {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .swap-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 28px;
+    }
+
+    .search-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search-label {
+        font-size: 1em;
+        margin-bottom: 8px;
+        color: #6c757d;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .search-input, .search-select {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1.8px solid #ced4da;
+        border-radius: 4px;
+        font-size: 1.1em;
+        font-weight: 600;
+        background: #fff;
+        color: #3e3e3e;
+        transition: border-color 0.3s, background 0.3s;
+        box-sizing: border-box;
+    }
+
+    .search-input:focus, .search-select:focus {
+        border-color: #ffc107;
+        background: #fff9db;
+        box-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+        outline: none;
+    }
+
+    .arrow-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em;
+        color: #3e3e3e;
+    }
+
+    .search-btn {
+        background: #ffc107;
+        color: #3e3e3e;
+        border: none;
+        border-radius: 4px;
+        padding: 20px 0;
+        font-size: 1.3em;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 32px;
+        width: 100%;
+        box-shadow: 0 4px 14px rgba(255, 193, 7, 0.4);
+        transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+        background: #e0a800;
+    }
+
+    @media (max-width: 900px) {
+        .outer-container {
+            margin: 20px 10px;
         }
 
         .container {
-            max-width: 700px;
-            min-width: 350px;
-            margin: 40px auto;
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(30, 64, 175, 0.10);
-            padding: 36px 40px 32px 40px;
-        }
-
-        h1 {
-            color: #2563eb;
-            text-align: center;
-            margin-bottom: 24px;
-            font-size: 2.2em;
-            font-weight: bold;
-        }
-
-        .search-container {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            padding: 24px;
         }
 
         .swap-row {
-            display: flex;
-            align-items: flex-end;
-            gap: 24px;
-            width: 100%;
-        }
-
-        .center-row {
-            justify-content: center;
-        }
-
-        .search-group {
-            display: flex;
             flex-direction: column;
-            width: 100%;
+            gap: 16px;
         }
+    }
+</style>
 
-        .date-group {
-            max-width: 300px;
-            width: 100%;
-        }
-
-        .search-label {
-            font-size: 1em;
-            margin-bottom: 6px;
-            color: #1e40af;
-            font-weight: bold;
-        }
-
-        .search-input, .search-select {
-            width: 100%;
-            min-width: 0;
-            padding: 12px 14px;
-            border: 1.5px solid #2563eb;
-            border-radius: 8px;
-            font-size: 1.08em;
-            outline: none;
-            background: #f3f6fd;
-            box-sizing: border-box;
-        }
-
-        .search-input:focus, .search-select:focus {
-            border: 1.5px solid #1e40af;
-        }
-
-        .swap-btn {
-            background: #e0e7ff;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-bottom: 24px;
-        }
-
-        .swap-btn:hover {
-            background: #2563eb;
-            color: #fff;
-        }
-
-        .search-btn {
-            background: #189eff;
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            padding: 18px 0;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 24px;
-            transition: background 0.2s;
-            width: 100%;
-        }
-
-        .search-btn:hover {
-            background: #2563eb;
-        }
-
-        @media (max-width: 900px) {
-            .container { max-width: 98vw; padding: 18px 4vw; }
-            .swap-row { flex-direction: column; gap: 12px; align-items: stretch; }
-        }
-    </style>
-
+<div class="outer-container">
+    <div class="header">ระบบจองตั๋วเครื่องบิน</div>
     <div class="container">
-        <h1>ค้นหาเที่ยวบิน</h1>
         <form class="search-container" action="{{ url('/search-flights') }}" method="get">
             <div class="swap-row">
-                <div class="search-group" style="flex:1;">
-                    <span class="search-label">จาก</span>
-                    <div style="display:flex;align-items:center;">
-                        <span style="font-size:1.2em;">🛫</span>
-                        <select class="search-select" name="departure" id="departure" required style="margin-left:8px;">
-                            <option value="">เลือกสนามบินต้นทาง</option>
-                            @php
-                                $departures = [];
-                                $allRoutes = [];
-                                if(isset($flights['data'])) {
-                                    foreach($flights['data'] as $flight) {
-                                        $dep = $flight['departure']['airport'] ?? null;
-                                        $depCode = $flight['departure']['iata'] ?? '';
-                                        $depCity = $flight['departure']['city'] ?? '';
-                                        $depCountry = $flight['departure']['country'] ?? '';
-                                        $arr = $flight['arrival']['airport'] ?? null;
-                                        $arrCode = $flight['arrival']['iata'] ?? '';
-                                        $arrCity = $flight['arrival']['city'] ?? '';
-                                        $arrCountry = $flight['arrival']['country'] ?? '';
-                                        $depKey = $depCode . '|' . $dep;
-                                        $arrKey = $arrCode . '|' . $arr;
-                                        if($dep && !isset($departures[$depKey])) {
-                                            $departures[$depKey] = [
-                                                'name' => $dep,
-                                                'code' => $depCode,
-                                                'city' => $depCity,
-                                                'country' => $depCountry
-                                            ];
-                                        }
-                                        if($depCode && $arrCode) {
-                                            $allRoutes[$depCode][] = [
-                                                'name' => $arr,
-                                                'code' => $arrCode,
-                                                'city' => $arrCity,
-                                                'country' => $arrCountry
-                                            ];
-                                        }
+                <!-- ต้นทาง -->
+                <div class="search-group">
+                    <label for="departure" class="search-label">ต้นทาง</label>
+                    <select class="search-select" name="departure" id="departure" required>
+                        <option value="">เลือกสนามบินต้นทาง</option>
+                        @php
+                            $departures = [];
+                            $allRoutes = [];
+                            if(isset($flights['data'])) {
+                                foreach($flights['data'] as $flight) {
+                                    $dep = $flight['departure']['airport'] ?? null;
+                                    $depCode = $flight['departure']['iata'] ?? '';
+                                    $depCity = $flight['departure']['city'] ?? '';
+                                    $depCountry = $flight['departure']['country'] ?? '';
+                                    $arr = $flight['arrival']['airport'] ?? null;
+                                    $arrCode = $flight['arrival']['iata'] ?? '';
+                                    $arrCity = $flight['arrival']['city'] ?? '';
+                                    $arrCountry = $flight['arrival']['country'] ?? '';
+                                    $depKey = $depCode . '|' . $dep;
+                                    $arrKey = $arrCode . '|' . $arr;
+                                    if($dep && !isset($departures[$depKey])) {
+                                        $departures[$depKey] = [
+                                            'name' => $dep,
+                                            'code' => $depCode,
+                                            'city' => $depCity,
+                                            'country' => $depCountry
+                                        ];
+                                    }
+                                    if($depCode && $arrCode) {
+                                        $allRoutes[$depCode][] = [
+                                            'name' => $arr,
+                                            'code' => $arrCode,
+                                            'city' => $arrCity,
+                                            'country' => $arrCountry
+                                        ];
                                     }
                                 }
-                            @endphp
-                            @foreach($departures as $dep)
-                                <option value="{{ $dep['code'] }}">
-                                    {{ $dep['city'] ? $dep['city'].' ' : '' }}{{ $dep['name'] }}{{ $dep['code'] ? ' ('.$dep['code'].')' : '' }}{{ $dep['country'] ? ' - '.$dep['country'] : '' }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                            }
+                        @endphp
+                        @foreach($departures as $dep)
+                            <option value="{{ $dep['code'] }}">
+                                {{ $dep['city'] ? $dep['city'].' ' : '' }}{{ $dep['name'] }} ({{ $dep['code'] }}){{ $dep['country'] ? ' - '.$dep['country'] : '' }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <button type="button" class="swap-btn" onclick="swapAirports()" title="สลับสนามบิน">
-                    🔄
-                </button>
+                <div class="arrow-center"><i class="fas fa-plane-departure"></i></div>
 
-                <div class="search-group" style="flex:1;">
-                    <span class="search-label">ถึง</span>
-                    <div style="display:flex;align-items:center;">
-                        <span style="font-size:1.2em;">🛬</span>
-                        <select class="search-select" name="arrival" id="arrival" required style="margin-left:8px;">
-                            <option value="">เลือกสนามบินปลายทาง</option>
-                        </select>
-                    </div>
+                <!-- ปลายทาง -->
+                <div class="search-group">
+                    <label for="arrival" class="search-label">ปลายทาง</label>
+                    <select class="search-select" name="arrival" id="arrival" required>
+                        <option value="">เลือกสนามบินปลายทาง</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="swap-row center-row">
-                <div class="search-group date-group">
-                    <span class="search-label">วันออกเดินทาง</span>
-                    <input class="search-input" type="date" name="depart_date" required>
-                </div>
+            <!-- วันที่ -->
+            <div class="search-group" style="max-width: 320px; margin: 0 auto;">
+                <label for="depart_date" class="search-label">วันออกเดินทาง</label>
+                <input class="search-input" type="date" name="depart_date" id="depart_date" required>
             </div>
 
-            <button class="search-btn" type="submit">ค้นหาเที่ยวบิน</button>
+            <!-- ปุ่มค้นหา -->
+            <button class="search-btn" type="submit">
+                <i class="fas fa-plane-departure" style="margin-right: 8px;"></i> ค้นหาเที่ยวบิน
+            </button>
         </form>
     </div>
+</div>
 
-    <script>
-        function swapAirports() {
-            const dep = document.getElementById('departure');
-            const arr = document.getElementById('arrival');
-            const temp = dep.value;
-            dep.value = arr.value;
-            arr.value = temp;
+<script>
+    const allRoutes = @json($allRoutes ?? []);
+
+    document.getElementById('departure').addEventListener('change', function () {
+        const depCode = this.value;
+        const arrivalSelect = document.getElementById('arrival');
+        arrivalSelect.innerHTML = '<option value="">เลือกสนามบินปลายทาง</option>';
+
+        if (depCode && allRoutes[depCode]) {
+            const seen = new Set();
+            allRoutes[depCode].forEach(arr => {
+                if (arr.code && !seen.has(arr.code)) {
+                    seen.add(arr.code);
+                    let label = (arr.city ? arr.city + ' ' : '') + arr.name;
+                    label += ` (${arr.code})${arr.country ? ' - ' + arr.country : ''}`;
+                    arrivalSelect.innerHTML += `<option value="${arr.code}">${label}</option>`;
+                }
+            });
         }
+    });
+</script>
 
-        const allRoutes = @json($allRoutes);
-
-        document.getElementById('departure').addEventListener('change', function() {
-            const depCode = this.value;
-            const arrivalSelect = document.getElementById('arrival');
-            arrivalSelect.innerHTML = '<option value="">เลือกสนามบินปลายทาง</option>';
-            if(depCode && allRoutes[depCode]) {
-                const seen = new Set();
-                allRoutes[depCode].forEach(arr => {
-                    if(arr.code && !seen.has(arr.code)) {
-                        seen.add(arr.code);
-                        let label = (arr.city ? arr.city + ' ' : '') + arr.name;
-                        if(arr.code) label += ' (' + arr.code + ')';
-                        if(arr.country) label += ' - ' + arr.country;
-                        arrivalSelect.innerHTML += `<option value="${arr.code}">${label}</option>`;
-                    }
-                });
-            }
-        });
-    </script>
 @endsection
